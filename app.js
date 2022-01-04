@@ -1,7 +1,5 @@
 //https://www.youtube.com/watch?v=JaMCxVWtW58
 
-
-
 //Book class: represents a book
 class Book {
   constructor(title, author, isbn) {
@@ -28,6 +26,8 @@ class UI {
      `;
     list.appendChild(row);
   }
+
+
   static deleteBook(element) {
     if (element.classList.contains("delete")) {
       element.parentElement.parentElement.remove();
@@ -50,6 +50,8 @@ class UI {
     document.querySelector("#author").value = "";
     document.querySelector("#isbn").value = "";
   }
+
+
 }
 
 //Store Class: handle storage
@@ -59,27 +61,27 @@ class Store {
     if (localStorage.getItem("books") === null) {
       books = [];
     } else {
-        //json.parse zmienia ze string na object
+      //json.parse zmienia ze string na object
       books = JSON.parse(localStorage.getItem("books"));
     }
     return books;
   }
 
   static addBook(book) {
-      const books = Store.getBooks();
-      books.push(book)
-      localStorage.setItem('books', JSON.stringify(books))
+    const books = Store.getBooks();
+    books.push(book);
+    localStorage.setItem("books", JSON.stringify(books));
   }
 
   static removeBook(isbn) {
-      const books = Store.getBooks();
+    const books = Store.getBooks();
 
-      books.forEach((book, index) => {
-          if (book.isbn === isbn){ 
-              books.splice(index, 1) 
-          }
-      })
-      localStorage.setItem('books', JSON.stringify(books))
+    books.forEach((book, index) => {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+    localStorage.setItem("books", JSON.stringify(books));
   }
 }
 
@@ -121,6 +123,10 @@ document.querySelector("#book-form").addEventListener("submit", (event) => {
 document.querySelector("#book-list").addEventListener("click", (event) => {
   UI.deleteBook(event.target);
   UI.showAlert("Book Removed!", "success");
+  console.log(event.target.parentElement.previousElementSibling)
   //remove book from ui
-  Store.removeBook(event.target.parentElement.previousElementSibling.textContent)
+  Store.removeBook(event.target.parentElement.previousElementSibling.textContent
+    
+  );
+
 });
